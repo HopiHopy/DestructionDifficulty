@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "id": "difficultyd",
+  "version": "${version}",
+  "name": "Destruction Difficulty",
+  "description": "Make it more difficult to destroy blocks, but of course, you can choose not to do anything.",
+  "authors": [
+    "MovTery"
+  ],
+  "contact": {},
+  "license": "MIT",
+  "icon": "assets/difficultyd/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "client": [
+      "com.movtery.difficultyd.Client.DifficultydClient"
+    ],
+    "main": [
+      "com.movtery.difficultyd.DifficultyD"
+    ],
+    "modmenu": [
+      "com.movtery.difficultyd.Config.ModConfig"
+    ]
+  },
+  "mixins": [
+    "difficultyd.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.14.9",
+    "fabric": "*",
+    "minecraft": ">=1.19 <=1.19.2",
+    "modmenu": ">=4.0.0",
+    "cloth-config": ">=7.0.69"
+  }
+}
