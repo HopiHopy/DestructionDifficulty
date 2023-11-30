@@ -28,8 +28,8 @@
   "depends": {
     "fabricloader": ">=0.14.9",
     "fabric": "*",
-    "minecraft": ">=1.19 <=1.19.2",
-    "modmenu": ">=4.0.0",
-    "cloth-config": ">=7.0.69"
+    "minecraft": ">=1.19.3 <=1.20.2",
+    "modmenu": ">=5.0.0",
+    "cloth-config": ">=9.0.94"
   }
 }

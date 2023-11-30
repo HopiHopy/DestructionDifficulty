@@ -12,8 +12,8 @@ import net.minecraft.enchantment.Enchantments;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.MiningToolItem;
+import net.minecraft.registry.Registries;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 
 import java.util.Random;
@@ -36,7 +36,7 @@ public class DifficultyD implements ModInitializer {
 
             ItemStack heldItem = player.getMainHandStack();
             Item item = heldItem.getItem();
-            String blockName = Registry.BLOCK.getId(state.getBlock()).toString();
+            String blockName = Registries.BLOCK.getId(state.getBlock()).toString();
 
             float chance = rand.nextFloat() * 100;
             if (!config.disable && !config.blockWhitelist.contains(blockName)) {
