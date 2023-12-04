@@ -41,6 +41,15 @@ public class ModConfig implements ModMenuApi {
                 })
                 .build());
 
+        general1.addEntry(entryBuilder.startBooleanToggle(Text.translatable("option.difficultyd.blockwhitelistdisable"), config.blockWhitelistDisable)
+                .setDefaultValue(false)
+                .setTooltip(Text.translatable("option.difficultyd.blockwhitelistdisable.tooptip"))
+                .setSaveConsumer(newValue -> {
+                    config.blockWhitelistDisable = newValue;
+                    AutoConfig.getConfigHolder(ModAutoConfig.class).save();
+                })
+                .build());
+
         general1.addEntry(entryBuilder.startStrList(Text.translatable("option.difficultyd.blockwhitelist"), config.blockWhitelist)
                 .setDefaultValue(Collections.singletonList("minecraft:chest"))
                 .setTooltip(Text.translatable("option.difficultyd.blockwhitelist.tooptip"))
@@ -68,7 +77,7 @@ public class ModConfig implements ModMenuApi {
                 .build());
 
         general1.addEntry(entryBuilder.startFloatField(Text.translatable("option.difficultyd.normal"), config.normalChance)
-                .setDefaultValue(15f)
+                .setDefaultValue(45f)
                 .setMax(100f).setMin(0)
                 .setTooltip(Text.translatable("option.difficultyd.normal.tooptip"))
                 .setSaveConsumer(newValue -> {
@@ -78,12 +87,47 @@ public class ModConfig implements ModMenuApi {
                 .build());
 
         general1.addEntry(entryBuilder.startBooleanToggle(Text.translatable("option.difficultyd.emptyhanded"), config.emptyHanded)
-                .setDefaultValue(true)
+                .setDefaultValue(false)
                 .setTooltip(Text.translatable("option.difficultyd.emptyhanded.tooptip"))
                 .setSaveConsumer(newValue -> {
                     config.emptyHanded = newValue;
                     AutoConfig.getConfigHolder(ModAutoConfig.class).save();
                 })
+                .build());
+
+        general1.addEntry(entryBuilder.startFloatField(Text.translatable("option.difficultyd.emptyhandedchance"), config.emptyHandedChance)
+                .setDefaultValue(15f)
+                .setMax(100f).setMin(0)
+                .setTooltip(Text.translatable("option.difficultyd.emptyhandedchance.tooptip"))
+                .setSaveConsumer(newValue -> {
+                    config.emptyHandedChance = newValue;
+                    AutoConfig.getConfigHolder(ModAutoConfig.class).save();
+                })
+                .build());
+
+        general1.addEntry(entryBuilder.startBooleanToggle(Text.translatable("option.difficultyd.actionbarchance"), config.actionbarChance)
+                .setDefaultValue(false)
+                .setTooltip(Text.translatable("option.difficultyd.actionbarchance.tooptip"))
+                .setSaveConsumer(newValue -> {
+                    config.actionbarChance = newValue;
+                    AutoConfig.getConfigHolder(ModAutoConfig.class).save();
+                })
+                .build());
+
+
+        general2.addEntry(entryBuilder.startBooleanToggle(Text.translatable("option.difficultyd.slowblockwhitelistdisable"), config.slowBlockWhitelistDisable)
+                .setDefaultValue(false)
+                .setTooltip(Text.translatable("option.difficultyd.slowblockwhitelistdisable.tooptip"))
+                .setSaveConsumer(newValue -> {
+                    config.slowBlockWhitelistDisable = newValue;
+                    AutoConfig.getConfigHolder(ModAutoConfig.class).save();
+                })
+                .build());
+
+        general2.addEntry(entryBuilder.startStrList(Text.translatable("option.difficultyd.slowblockwhitelist"), config.slowBlockWhitelist)
+                .setDefaultValue(Collections.singletonList("minecraft:chest"))
+                .setTooltip(Text.translatable("option.difficultyd.slowblockwhitelist.tooptip"))
+                .setSaveConsumer(newValue -> config.slowBlockWhitelist = newValue)
                 .build());
 
         general2.addEntry(entryBuilder.startBooleanToggle(Text.translatable("option.difficultyd.slowmining"), config.slowMining)
