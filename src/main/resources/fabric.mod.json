@@ -7,7 +7,11 @@
   "authors": [
     "MovTery"
   ],
-  "contact": {},
+  "contact": {
+    "homepage": "https://modrinth.com/mod/destructiond",
+    "sources": "https://github.com/HopiHopy/DestructionDifficulty",
+    "issues": "https://github.com/HopiHopy/DestructionDifficulty/issues"
+  },
   "license": "MIT",
   "icon": "assets/difficultyd/icon.png",
   "environment": "*",
