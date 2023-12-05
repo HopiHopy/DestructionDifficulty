@@ -42,7 +42,10 @@ public class DifficultyD implements ModInitializer {
 
         PlayerBlockBreakEvents.BEFORE.register((world, player, pos, state, entity) -> {
             if (!config.disable && config.foodLevel && !(player.isCreative())) {
-                BreakHunger.setHunger(player, config);
+                BreakHunger.setFoodLevel(player, config);
+            }
+            if (!config.disable && config.exhaustionLevel && !(player.isCreative())) {
+                BreakHunger.setExhaustionLevel(player, config);
             }
 
             ItemStack heldItem = player.getMainHandStack();

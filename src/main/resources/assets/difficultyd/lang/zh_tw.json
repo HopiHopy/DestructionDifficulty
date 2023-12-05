@@ -41,5 +41,11 @@
     "option.difficultyd.foodlevelchance": "破壞方塊消耗飢餓值的機率：(0-100)",
     "option.difficultyd.foodlevelchance.tooptip": "更改這個數值，讓您在非創造模式中破壞方塊後，\n以您認為最合適的機率扣除少量飢餓值",
     "option.difficultyd.removefoodlevel": "每次扣除的飢餓值：(1-20)",
-    "option.difficultyd.removefoodlevel.tooptip": "更改這個數值，讓您在非創造模式中破壞方塊後，\n以您認為最合適的數量扣除飢餓值"
+    "option.difficultyd.removefoodlevel.tooptip": "更改這個數值，讓您在非創造模式中破壞方塊後，\n以您認為最合適的數量扣除飢餓值",
+    "option.difficultyd.exhaustionlevel": "破壞方塊是否增加消耗度",
+    "option.difficultyd.exhaustionlevel.tooptip": "如果開啟，那麼每次破壞任意方塊，都有概率增加少量消耗度\n如果您不了解什麼是\"消耗度\"，可以查閱此WIKI: \nhttps://zh.minecraft.wiki/w/飢餓?variant=zh-tw#机制",
+    "option.difficultyd.exhaustionlevelchance": "破壞方塊增加消耗度的概率：(0-100)",
+    "option.difficultyd.exhaustionlevelchance.tooptip": "更改這個數值，讓您在非創造模式中破壞方塊後，\n以您認為最合適的概率增加少量消耗度",
+    "option.difficultyd.addexhaustionlevel": "每次增加的消耗度：(0-4)",
+    "option.difficultyd.addexhaustionlevel.tooptip": "更改這個數值，讓您在非創造模式中破壞方塊後，\n以您認為最合適的數量增加消耗度值"
 }
