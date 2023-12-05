@@ -6,6 +6,7 @@ import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.clothconfig2.api.ConfigBuilder;
 import me.shedaniel.clothconfig2.api.ConfigCategory;
 import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
+import me.shedaniel.clothconfig2.gui.entries.DropdownBoxEntry;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
@@ -172,6 +173,35 @@ public class ModConfig implements ModMenuApi {
                 .setTooltip(Text.translatable("option.difficultyd.removefoodlevel.tooptip"))
                 .setSaveConsumer(newValue -> {
                     config.removeFoodLevel = newValue;
+                    AutoConfig.getConfigHolder(ModAutoConfig.class).save();
+                })
+                .build());
+
+        general2.addEntry(entryBuilder.startBooleanToggle(Text.translatable("option.difficultyd.exhaustionlevel"), config.exhaustionLevel)
+                .setDefaultValue(false)
+                .setTooltip(Text.translatable("option.difficultyd.exhaustionlevel.tooptip"))
+                .setSaveConsumer(newValue -> {
+                    config.exhaustionLevel = newValue;
+                    AutoConfig.getConfigHolder(ModAutoConfig.class).save();
+                })
+                .build());
+
+        general2.addEntry(entryBuilder.startFloatField(Text.translatable("option.difficultyd.exhaustionlevelchance"), config.exhaustionLevelChance)
+                .setDefaultValue(40f)
+                .setMax(100f).setMin(0)
+                .setTooltip(Text.translatable("option.difficultyd.exhaustionlevelchance.tooptip"))
+                .setSaveConsumer(newValue -> {
+                    config.exhaustionLevelChance = newValue;
+                    AutoConfig.getConfigHolder(ModAutoConfig.class).save();
+                })
+                .build());
+
+        general2.addEntry(entryBuilder.startFloatField(Text.translatable("option.difficultyd.addexhaustionlevel"), config.addExhaustionLevel)
+                .setDefaultValue(1)
+                .setMax(4).setMin(0)
+                .setTooltip(Text.translatable("option.difficultyd.addexhaustionlevel.tooptip"))
+                .setSaveConsumer(newValue -> {
+                    config.addExhaustionLevel = newValue;
                     AutoConfig.getConfigHolder(ModAutoConfig.class).save();
                 })
                 .build());

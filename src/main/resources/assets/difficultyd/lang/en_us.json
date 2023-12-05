@@ -41,6 +41,12 @@
     "option.difficultyd.foodlevelchance": "Probability of breaking blocks consuming hunger: (0-100)",
     "option.difficultyd.foodlevelchance.tooptip": "Change to set the probability of consuming hunger when breaking blocks in survival mode.",
     "option.difficultyd.removefoodlevel": "Amount of hunger to be deducted each time: (1-20)",
-    "option.difficultyd.removefoodlevel.tooptip": "Change to set the amount of hunger to be deducted each time a block is broken in survival mode."
+    "option.difficultyd.removefoodlevel.tooptip": "Change to set the amount of hunger to be deducted each time a block is broken in survival mode.",
+    "option.difficultyd.exhaustionlevel": "Does breaking blocks increase exhaustion:",
+    "option.difficultyd.exhaustionlevel.tooptip": "If true, there is a chance to consume a small amount of exhaustion when breaking blocks in survival mode.\nIf you are unfamiliar with \"exhaustion\", you can refer to this WIKI: \nhttps://minecraft.wiki/w/Hunger#Mechanics",
+    "option.difficultyd.exhaustionlevelchance": "Probability of increasing exhaustion when breaking blocks: (0-100)",
+    "option.difficultyd.exhaustionlevelchance.tooptip": "Change to set the probability of increasing a small amount of exhaustion when breaking blocks in survival mode.",
+    "option.difficultyd.addexhaustionlevel": "Amount of exhaustion to add each time: (0-4)",
+    "option.difficultyd.addexhaustionlevel.tooptip": "Change this value to set the amount of exhaustion to add each time a block is broken in survival mode."
 }
 
