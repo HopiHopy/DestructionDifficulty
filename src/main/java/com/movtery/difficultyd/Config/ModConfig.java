@@ -6,7 +6,6 @@ import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.clothconfig2.api.ConfigBuilder;
 import me.shedaniel.clothconfig2.api.ConfigCategory;
 import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
-import me.shedaniel.clothconfig2.gui.entries.DropdownBoxEntry;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
@@ -15,14 +14,14 @@ import java.util.Collections;
 public class ModConfig implements ModMenuApi {
     @Override
     public ConfigScreenFactory<?> getModConfigScreenFactory() {
-        return parent -> getConfigScreen1().build();
+        return parent -> getConfigScreen().build();
     }
-    private ConfigBuilder getConfigScreen1() {
+    private ConfigBuilder getConfigScreen() {
         ConfigBuilder builder = ConfigBuilder.create()
                 .setTitle(Text.translatable("title.difficultyd.config"))
                 .setDefaultBackgroundTexture(new Identifier("minecraft:textures/block/stone.png"))
                 .setSavingRunnable(() -> {
-                    getConfigScreen1().build();
+                    getConfigScreen().build();
                 });
 
         ConfigCategory general1 = builder.getOrCreateCategory(Text.translatable("category.difficultyd.c1"));
@@ -54,7 +53,10 @@ public class ModConfig implements ModMenuApi {
         general1.addEntry(entryBuilder.startStrList(Text.translatable("option.difficultyd.blockwhitelist"), config.blockWhitelist)
                 .setDefaultValue(Collections.singletonList("minecraft:chest"))
                 .setTooltip(Text.translatable("option.difficultyd.blockwhitelist.tooptip"))
-                .setSaveConsumer(newValue -> config.blockWhitelist = newValue)
+                .setSaveConsumer(newValue -> {
+                    config.blockWhitelist = newValue;
+                    AutoConfig.getConfigHolder(ModAutoConfig.class).save();
+                })
                 .build());
 
         general1.addEntry(entryBuilder.startFloatField(Text.translatable("option.difficultyd.hasSilkTouch"), config.silkTouchChance)
@@ -128,7 +130,10 @@ public class ModConfig implements ModMenuApi {
         general2.addEntry(entryBuilder.startStrList(Text.translatable("option.difficultyd.slowblockwhitelist"), config.slowBlockWhitelist)
                 .setDefaultValue(Collections.singletonList("minecraft:chest"))
                 .setTooltip(Text.translatable("option.difficultyd.slowblockwhitelist.tooptip"))
-                .setSaveConsumer(newValue -> config.slowBlockWhitelist = newValue)
+                .setSaveConsumer(newValue -> {
+                    config.slowBlockWhitelist = newValue;
+                    AutoConfig.getConfigHolder(ModAutoConfig.class).save();
+                })
                 .build());
 
         general2.addEntry(entryBuilder.startBooleanToggle(Text.translatable("option.difficultyd.slowmining"), config.slowMining)
@@ -202,6 +207,15 @@ public class ModConfig implements ModMenuApi {
                 .setTooltip(Text.translatable("option.difficultyd.addexhaustionlevel.tooptip"))
                 .setSaveConsumer(newValue -> {
                     config.addExhaustionLevel = newValue;
+                    AutoConfig.getConfigHolder(ModAutoConfig.class).save();
+                })
+                .build());
+
+        general2.addEntry(entryBuilder.startBooleanToggle(Text.translatable("option.difficultyd.actionbarchance"), config.actionbarFoodLevelChance)
+                .setDefaultValue(false)
+                .setTooltip(Text.translatable("option.difficultyd.actionbarchance.tooptip"))
+                .setSaveConsumer(newValue -> {
+                    config.actionbarFoodLevelChance = newValue;
                     AutoConfig.getConfigHolder(ModAutoConfig.class).save();
                 })
                 .build());

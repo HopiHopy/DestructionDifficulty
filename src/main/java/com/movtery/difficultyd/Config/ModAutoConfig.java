@@ -28,4 +28,5 @@ public class ModAutoConfig implements ConfigData {
     public boolean exhaustionLevel = false;
     public float exhaustionLevelChance = 40f;
     public float addExhaustionLevel = 1;
+    public boolean actionbarFoodLevelChance = false;
 }
