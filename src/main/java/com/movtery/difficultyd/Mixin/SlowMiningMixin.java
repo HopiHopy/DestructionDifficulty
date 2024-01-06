@@ -22,7 +22,7 @@ public class SlowMiningMixin {
         } else {
             blockName = Blocks.AIR.toString();
         }
-        if (!config.disable && config.slowMining && !config.slowBlockWhitelist.contains(blockName) && !((PlayerEntity)(Object)this).isCreative()) {
+        if (!config.disable && config.slowMining && !config.slowBlockWhitelist.contains(blockName) && !((PlayerEntity) (Object) this).isCreative()) {
             cir.setReturnValue(cir.getReturnValue() / config.slowMiningSpeed);
         }
     }

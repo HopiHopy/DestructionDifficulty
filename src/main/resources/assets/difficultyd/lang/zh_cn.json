@@ -4,8 +4,22 @@
     "modmenu.descriptionTranslation.difficultyd": "使破坏方块变得更加困难，当然您也可以选择什么都不做",
     "modmenu.summaryTranslation.difficultyd": "增加破坏方块的难度",
 
-    "category.difficultyd.c1": "设置破坏方块掉落物品的概率",
+    "key.difficultyd.category": "破坏困难",
+    "key.difficultyd.key.openConfigScreen": "打开配置屏幕",
+
+    "category.difficultyd.main": "主要设置",
     "option.difficultyd.disable": "是否禁用此模组：",
+    "option.difficultyd.randomnumbers": "(调试选项) 随机数: ",
+    "option.difficultyd.randomnumbers.tooptip": "显示随机数的总开关，将控制模组内所有的随机数是否显示在玩家的聊天栏内",
+
+    "text.difficultyd.randomnumbers.drop": "掉落：",
+    "text.difficultyd.randomnumbers.food": "饥饿值：",
+    "text.difficultyd.randomnumbers.exhaustion": "消耗度：",
+    "text.difficultyd.randomnumbers.nothing": "未启用任何选项",
+    "text.difficultyd.randomnumbers.yes": "是",
+    "text.difficultyd.randomnumbers.no": "否",
+
+    "category.difficultyd.drop": "掉率规则",
     "option.difficultyd.disable.tooptip": "如果禁用此模组，那么本模组将不再做出任何操作",
     "option.difficultyd.blockwhitelistdisable": "(概率掉落) 是否启用方块白名单：",
     "option.difficultyd.blockwhitelistdisable.tooptip": "如果开启，即可让添加在白名单内的方块不受到概率掉落影响",
@@ -21,13 +35,9 @@
     "option.difficultyd.emptyhanded.tooptip": "如果开启，那么在不使用工具破坏方块时将不掉落任何物品",
     "option.difficultyd.emptyhandedchance": "不使用工具破坏方块时，物品掉落的概率：(0-100)",
     "option.difficultyd.emptyhandedchance.tooptip": "更改这个数值，让您在不使用工具破坏方块时，\n以您认为最合理的掉落概率掉落物品",
-    "option.difficultyd.actionbarchance": "显示随机数显示：",
-    "option.difficultyd.actionbarchance.tooptip": "如果开启，那么就会在物品栏上方显示随机数是否满足条件",
-    "text.difficultyd.randomnumbers": "随机数: ",
-    "text.difficultyd.randomnumbers.no": " 否",
-    "text.difficultyd.randomnumbers.yes": " 是",
+    "option.difficultyd.actionbardropchance": "(概率掉落) 显示随机数：",
 
-    "category.difficultyd.c2": "设置挖掘方块的效果",
+    "category.difficultyd.slowmining": "缓慢挖掘",
     "option.difficultyd.slowblockwhitelistdisable": "(缓慢挖掘) 是否启用方块白名单：",
     "option.difficultyd.slowblockwhitelistdisable.tooptip": "如果开启，将不会降低玩家破坏添加在白名单内的方块的速度",
     "option.difficultyd.slowblockwhitelist": "(缓慢挖掘) 方块白名单",
@@ -36,16 +46,20 @@
     "option.difficultyd.slowmining.tooptip": "如果开启，那么将按照您设置的倍速，降低玩家破坏方块的速度",
     "option.difficultyd.slowminingspeed": "方块破坏时长倍数：",
     "option.difficultyd.slowminingspeed.tooptip": "更改这个数值，让您在非创造模式中挖掘方块时，\n将任何方块的破坏速度改为您认为最合适的速度",
+
+    "category.difficultyd.breakhunger": "饥饿值规则",
     "option.difficultyd.foodlevel": "破坏方块是否消耗饥饿值",
     "option.difficultyd.foodlevel.tooptip": "如果开启，那么每次破坏任意方块，都有概率消耗少量饥饿值",
     "option.difficultyd.foodlevelchance": "破坏方块消耗饥饿值的概率：(0-100)",
     "option.difficultyd.foodlevelchance.tooptip": "更改这个数值，让您在非创造模式中破坏方块后，\n以您认为最合适的概率扣除少量饥饿值",
     "option.difficultyd.removefoodlevel": "每次扣除的饥饿值：(1-20)",
     "option.difficultyd.removefoodlevel.tooptip": "更改这个数值，让您在非创造模式中破坏方块后，\n以您认为最合适的数量扣除饥饿值",
+    "option.difficultyd.actionbarfoodchance": "(饥饿值) 显示随机数：",
     "option.difficultyd.exhaustionlevel": "破坏方块是否增加消耗度",
     "option.difficultyd.exhaustionlevel.tooptip": "如果开启，那么每次破坏任意方块，都有概率增加少量消耗度\n如果您不了解什么是\"消耗度\"，可以查阅此WIKI: \nhttps://zh.minecraft.wiki/w/饥饿?variant=zh-cn#机制",
     "option.difficultyd.exhaustionlevelchance": "破坏方块增加消耗度的概率：(0-100)",
     "option.difficultyd.exhaustionlevelchance.tooptip": "更改这个数值，让您在非创造模式中破坏方块后，\n以您认为最合适的概率增加少量消耗度",
     "option.difficultyd.addexhaustionlevel": "每次增加的消耗度：(0-4)",
-    "option.difficultyd.addexhaustionlevel.tooptip": "更改这个数值，让您在非创造模式中破坏方块后，\n以您认为最合适的数量增加消耗度值"
+    "option.difficultyd.addexhaustionlevel.tooptip": "更改这个数值，让您在非创造模式中破坏方块后，\n以您认为最合适的数量增加消耗度值",
+    "option.difficultyd.actionbarexhaustionchance": "(消耗度) 显示随机数："
 }
