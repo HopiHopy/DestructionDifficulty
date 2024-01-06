@@ -9,11 +9,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.MiningToolItem;
-import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
@@ -21,7 +19,38 @@ import net.minecraft.world.World;
 import java.util.Random;
 
 public class DifficultyD implements ModInitializer {
+    private static double dropChance;
+    private static String dropJudgment;
+    private static double differentToolDropChance;
     private final Random rand = new Random();
+
+    public static String getDropJudgment() {
+        return dropJudgment;
+    }
+
+    public static void setDropJudgment(String dropJudgment) {
+        DifficultyD.dropJudgment = dropJudgment;
+    }
+
+    public static double getDropChance() {
+        return dropChance;
+    }
+
+    public static void setDropChance(double dropChance1) {
+        DifficultyD.dropChance = dropChance1;
+    }
+
+    public static double getDifferentToolDropChance() {
+        return differentToolDropChance;
+    }
+
+    public static void setDifferentToolDropChance(double dropChance1) {
+        DifficultyD.differentToolDropChance = dropChance1;
+    }
+
+    private void setAir(World world, BlockPos pos) {
+        world.setBlockState(pos, Blocks.AIR.getDefaultState(), Block.NOTIFY_LISTENERS | Block.REDRAW_ON_MAIN_THREAD);
+    }
 
     @Override
     public void onInitialize() {
@@ -35,13 +64,8 @@ public class DifficultyD implements ModInitializer {
                 Item item = player.getMainHandStack().getItem();
                 String blockName;
                 float chance = rand.nextFloat() * 100;
+                setDropChance(chance);
 
-                if (config.foodLevel) {
-                    BreakHunger.setFoodLevel(player, config);
-                }
-                if (config.exhaustionLevel) {
-                    BreakHunger.setExhaustionLevel(player, config);
-                }
                 if (config.blockWhitelistDisable) {
                     blockName = Registry.BLOCK.getId(state.getBlock()).toString();
                 } else {
@@ -53,69 +77,54 @@ public class DifficultyD implements ModInitializer {
                         if (EnchantmentHelper.getLevel(Enchantments.SILK_TOUCH, heldItem) > 0) {
                             if (chance > config.silkTouchChance) {
                                 setAir(world, pos);
-                                actionbarNo(config, chance,  config.silkTouchChance, player);
+                                setDifferentToolDropChance(config.silkTouchChance);
+                                setDropJudgment(" > ");
                             } else {
-                                actionbarYes(config, chance,  config.silkTouchChance, player);
+                                setDropJudgment(" < ");
                             }
-                            return true;
                         }
                         if (EnchantmentHelper.getLevel(Enchantments.FORTUNE, heldItem) > 0) {
                             if (chance > config.fortuneChance) {
                                 setAir(world, pos);
-                                actionbarNo(config, chance,  config.fortuneChance, player);
+                                setDifferentToolDropChance(config.fortuneChance);
+                                setDropJudgment(" > ");
                             } else {
-                                actionbarYes(config, chance,  config.fortuneChance, player);
+                                setDropJudgment(" < ");
                             }
-                            return true;
                         }
                         if (chance > config.normalChance) {
                             setAir(world, pos);
-                            actionbarNo(config, chance,  config.normalChance, player);
+                            setDifferentToolDropChance(config.normalChance);
+                            setDropJudgment(" > ");
                         } else {
-                            actionbarYes(config, chance,  config.normalChance, player);
+                            setDropJudgment(" < ");
                         }
-                        return true;
                     } else {
                         if (!config.emptyHanded) {
                             if (chance > config.emptyHandedChance) {
                                 setAir(world, pos);
-                                actionbarNo(config, chance,  config.emptyHandedChance, player);
+                                setDifferentToolDropChance(config.emptyHandedChance);
+                                setDropJudgment(" > ");
                             } else {
-                                actionbarYes(config, chance,  config.emptyHandedChance, player);
+                                setDropJudgment(" < ");
                             }
-                            return true;
                         } else {
                             setAir(world, pos);
                         }
                     }
                 }
+
+                if (config.foodLevel) {
+                    BreakHunger.setFoodLevel(player, config);
+                }
+                if (config.exhaustionLevel) {
+                    BreakHunger.setExhaustionLevel(player, config);
+                }
+                if (config.randomnumber) {
+                    ShowRandomNumber.RandomNumber(player);
+                }
             }
             return true;
         });
-    }
-
-    private void setAir(World world, BlockPos pos) {
-        world.setBlockState(pos, Blocks.AIR.getDefaultState(), Block.NOTIFY_LISTENERS | Block.REDRAW_ON_MAIN_THREAD);
-    }
-
-    private void actionbarYes(ModAutoConfig config, float chance1, float chance2, PlayerEntity player) {
-        if (config.actionbarChance) {
-            Text message = Text.translatable("text.difficultyd.randomnumbers")
-                    .append(String.valueOf(chance1))
-                    .append(" < ")
-                    .append(String.valueOf(chance2))
-                    .append(Text.translatable("text.difficultyd.randomnumbers.yes"));
-            player.sendMessage(message, true);
-        }
-    }
-    private void actionbarNo(ModAutoConfig config, float chance1, float chance2, PlayerEntity player) {
-        if (config.actionbarChance) {
-            Text message = Text.translatable("text.difficultyd.randomnumbers")
-                    .append(String.valueOf(chance1))
-                    .append(" > ")
-                    .append(String.valueOf(chance2))
-                    .append(Text.translatable("text.difficultyd.randomnumbers.no"));
-            player.sendMessage(message, true);
-        }
     }
 }

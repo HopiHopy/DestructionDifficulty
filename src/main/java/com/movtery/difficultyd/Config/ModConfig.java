@@ -7,32 +7,28 @@ import me.shedaniel.clothconfig2.api.ConfigBuilder;
 import me.shedaniel.clothconfig2.api.ConfigCategory;
 import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
 import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
 
 import java.util.Collections;
 
 public class ModConfig implements ModMenuApi {
-    @Override
-    public ConfigScreenFactory<?> getModConfigScreenFactory() {
-        return parent -> getConfigScreen().build();
-    }
-    private ConfigBuilder getConfigScreen() {
+    public static ConfigBuilder getConfigScreen() {
         ConfigBuilder builder = ConfigBuilder.create()
                 .setTitle(Text.translatable("title.difficultyd.config"))
-                .setDefaultBackgroundTexture(new Identifier("minecraft:textures/block/stone.png"))
-                .setSavingRunnable(() -> {
-                    getConfigScreen().build();
-                });
+                .setTransparentBackground(true)
+                .alwaysShowTabs()
+                .setSavingRunnable(() -> getConfigScreen().build());
 
-        ConfigCategory general1 = builder.getOrCreateCategory(Text.translatable("category.difficultyd.c1"));
-
-        ConfigCategory general2 = builder.getOrCreateCategory(Text.translatable("category.difficultyd.c2"));
+        ConfigCategory main = builder.getOrCreateCategory(Text.translatable("category.difficultyd.main"));
+        ConfigCategory drop = builder.getOrCreateCategory(Text.translatable("category.difficultyd.drop"));
+        ConfigCategory slowMining = builder.getOrCreateCategory(Text.translatable("category.difficultyd.slowmining"));
+        ConfigCategory breakHunger = builder.getOrCreateCategory(Text.translatable("category.difficultyd.breakhunger"));
 
         ConfigEntryBuilder entryBuilder = builder.entryBuilder();
 
         ModAutoConfig config = AutoConfig.getConfigHolder(ModAutoConfig.class).getConfig();
 
-        general1.addEntry(entryBuilder.startBooleanToggle(Text.translatable("option.difficultyd.disable"), config.disable)
+        // 主要设置
+        main.addEntry(entryBuilder.startBooleanToggle(Text.translatable("option.difficultyd.disable"), config.disable)
                 .setDefaultValue(false)
                 .setTooltip(Text.translatable("option.difficultyd.disable.tooptip"))
                 .setSaveConsumer(newValue -> {
@@ -41,7 +37,17 @@ public class ModConfig implements ModMenuApi {
                 })
                 .build());
 
-        general1.addEntry(entryBuilder.startBooleanToggle(Text.translatable("option.difficultyd.blockwhitelistdisable"), config.blockWhitelistDisable)
+        main.addEntry(entryBuilder.startBooleanToggle(Text.translatable("option.difficultyd.randomnumbers"), config.randomnumber)
+                .setTooltip(Text.translatable("option.difficultyd.randomnumbers.tooptip"))
+                .setSaveConsumer(newValue -> {
+                    config.randomnumber = newValue;
+                    AutoConfig.getConfigHolder(ModAutoConfig.class).save();
+                })
+                .setDefaultValue(false)
+                .build());
+
+        // 掉率规则
+        drop.addEntry(entryBuilder.startBooleanToggle(Text.translatable("option.difficultyd.blockwhitelistdisable"), config.blockWhitelistDisable)
                 .setDefaultValue(false)
                 .setTooltip(Text.translatable("option.difficultyd.blockwhitelistdisable.tooptip"))
                 .setSaveConsumer(newValue -> {
@@ -50,7 +56,7 @@ public class ModConfig implements ModMenuApi {
                 })
                 .build());
 
-        general1.addEntry(entryBuilder.startStrList(Text.translatable("option.difficultyd.blockwhitelist"), config.blockWhitelist)
+        drop.addEntry(entryBuilder.startStrList(Text.translatable("option.difficultyd.blockwhitelist"), config.blockWhitelist)
                 .setDefaultValue(Collections.singletonList("minecraft:chest"))
                 .setTooltip(Text.translatable("option.difficultyd.blockwhitelist.tooptip"))
                 .setSaveConsumer(newValue -> {
@@ -59,7 +65,7 @@ public class ModConfig implements ModMenuApi {
                 })
                 .build());
 
-        general1.addEntry(entryBuilder.startFloatField(Text.translatable("option.difficultyd.hasSilkTouch"), config.silkTouchChance)
+        drop.addEntry(entryBuilder.startFloatField(Text.translatable("option.difficultyd.hasSilkTouch"), config.silkTouchChance)
                 .setDefaultValue(80f)
                 .setMax(100f).setMin(0)
                 .setTooltip(Text.translatable("option.difficultyd.hasSilkTouch.tooptip"))
@@ -69,7 +75,7 @@ public class ModConfig implements ModMenuApi {
                 })
                 .build());
 
-        general1.addEntry(entryBuilder.startFloatField(Text.translatable("option.difficultyd.hasFortune"), config.fortuneChance)
+        drop.addEntry(entryBuilder.startFloatField(Text.translatable("option.difficultyd.hasFortune"), config.fortuneChance)
                 .setDefaultValue(65f)
                 .setMax(100f).setMin(0)
                 .setTooltip(Text.translatable("option.difficultyd.hasFortune.tooptip"))
@@ -79,7 +85,7 @@ public class ModConfig implements ModMenuApi {
                 })
                 .build());
 
-        general1.addEntry(entryBuilder.startFloatField(Text.translatable("option.difficultyd.normal"), config.normalChance)
+        drop.addEntry(entryBuilder.startFloatField(Text.translatable("option.difficultyd.normal"), config.normalChance)
                 .setDefaultValue(45f)
                 .setMax(100f).setMin(0)
                 .setTooltip(Text.translatable("option.difficultyd.normal.tooptip"))
@@ -89,7 +95,7 @@ public class ModConfig implements ModMenuApi {
                 })
                 .build());
 
-        general1.addEntry(entryBuilder.startBooleanToggle(Text.translatable("option.difficultyd.emptyhanded"), config.emptyHanded)
+        drop.addEntry(entryBuilder.startBooleanToggle(Text.translatable("option.difficultyd.emptyhanded"), config.emptyHanded)
                 .setDefaultValue(false)
                 .setTooltip(Text.translatable("option.difficultyd.emptyhanded.tooptip"))
                 .setSaveConsumer(newValue -> {
@@ -98,7 +104,7 @@ public class ModConfig implements ModMenuApi {
                 })
                 .build());
 
-        general1.addEntry(entryBuilder.startFloatField(Text.translatable("option.difficultyd.emptyhandedchance"), config.emptyHandedChance)
+        drop.addEntry(entryBuilder.startFloatField(Text.translatable("option.difficultyd.emptyhandedchance"), config.emptyHandedChance)
                 .setDefaultValue(15f)
                 .setMax(100f).setMin(0)
                 .setTooltip(Text.translatable("option.difficultyd.emptyhandedchance.tooptip"))
@@ -108,17 +114,16 @@ public class ModConfig implements ModMenuApi {
                 })
                 .build());
 
-        general1.addEntry(entryBuilder.startBooleanToggle(Text.translatable("option.difficultyd.actionbarchance"), config.actionbarChance)
+        drop.addEntry(entryBuilder.startBooleanToggle(Text.translatable("option.difficultyd.actionbardropchance"), config.randomDropChance)
                 .setDefaultValue(false)
-                .setTooltip(Text.translatable("option.difficultyd.actionbarchance.tooptip"))
                 .setSaveConsumer(newValue -> {
-                    config.actionbarChance = newValue;
+                    config.randomDropChance = newValue;
                     AutoConfig.getConfigHolder(ModAutoConfig.class).save();
                 })
                 .build());
 
-
-        general2.addEntry(entryBuilder.startBooleanToggle(Text.translatable("option.difficultyd.slowblockwhitelistdisable"), config.slowBlockWhitelistDisable)
+        // 缓慢挖掘
+        slowMining.addEntry(entryBuilder.startBooleanToggle(Text.translatable("option.difficultyd.slowblockwhitelistdisable"), config.slowBlockWhitelistDisable)
                 .setDefaultValue(false)
                 .setTooltip(Text.translatable("option.difficultyd.slowblockwhitelistdisable.tooptip"))
                 .setSaveConsumer(newValue -> {
@@ -127,7 +132,7 @@ public class ModConfig implements ModMenuApi {
                 })
                 .build());
 
-        general2.addEntry(entryBuilder.startStrList(Text.translatable("option.difficultyd.slowblockwhitelist"), config.slowBlockWhitelist)
+        slowMining.addEntry(entryBuilder.startStrList(Text.translatable("option.difficultyd.slowblockwhitelist"), config.slowBlockWhitelist)
                 .setDefaultValue(Collections.singletonList("minecraft:chest"))
                 .setTooltip(Text.translatable("option.difficultyd.slowblockwhitelist.tooptip"))
                 .setSaveConsumer(newValue -> {
@@ -136,7 +141,7 @@ public class ModConfig implements ModMenuApi {
                 })
                 .build());
 
-        general2.addEntry(entryBuilder.startBooleanToggle(Text.translatable("option.difficultyd.slowmining"), config.slowMining)
+        slowMining.addEntry(entryBuilder.startBooleanToggle(Text.translatable("option.difficultyd.slowmining"), config.slowMining)
                 .setDefaultValue(false)
                 .setTooltip(Text.translatable("option.difficultyd.slowmining.tooptip"))
                 .setSaveConsumer(newValue -> {
@@ -145,7 +150,7 @@ public class ModConfig implements ModMenuApi {
                 })
                 .build());
 
-        general2.addEntry(entryBuilder.startIntSlider(Text.translatable("option.difficultyd.slowminingspeed"), config.slowMiningSpeed, 1, 100)
+        slowMining.addEntry(entryBuilder.startIntSlider(Text.translatable("option.difficultyd.slowminingspeed"), config.slowMiningSpeed, 1, 100)
                 .setDefaultValue(4)
                 .setTooltip(Text.translatable("option.difficultyd.slowminingspeed.tooptip"))
                 .setSaveConsumer(newValue -> {
@@ -154,7 +159,8 @@ public class ModConfig implements ModMenuApi {
                 })
                 .build());
 
-        general2.addEntry(entryBuilder.startBooleanToggle(Text.translatable("option.difficultyd.foodlevel"), config.foodLevel)
+        // 饥饿值规则
+        breakHunger.addEntry(entryBuilder.startBooleanToggle(Text.translatable("option.difficultyd.foodlevel"), config.foodLevel)
                 .setDefaultValue(false)
                 .setTooltip(Text.translatable("option.difficultyd.foodlevel.tooptip"))
                 .setSaveConsumer(newValue -> {
@@ -163,7 +169,7 @@ public class ModConfig implements ModMenuApi {
                 })
                 .build());
 
-        general2.addEntry(entryBuilder.startFloatField(Text.translatable("option.difficultyd.foodlevelchance"), config.foodLevelChance)
+        breakHunger.addEntry(entryBuilder.startFloatField(Text.translatable("option.difficultyd.foodlevelchance"), config.foodLevelChance)
                 .setDefaultValue(40f)
                 .setMax(100f).setMin(0)
                 .setTooltip(Text.translatable("option.difficultyd.foodlevelchance.tooptip"))
@@ -173,7 +179,7 @@ public class ModConfig implements ModMenuApi {
                 })
                 .build());
 
-        general2.addEntry(entryBuilder.startIntSlider(Text.translatable("option.difficultyd.removefoodlevel"), config.removeFoodLevel , 1, 20)
+        breakHunger.addEntry(entryBuilder.startIntSlider(Text.translatable("option.difficultyd.removefoodlevel"), config.removeFoodLevel, 1, 20)
                 .setDefaultValue(1)
                 .setTooltip(Text.translatable("option.difficultyd.removefoodlevel.tooptip"))
                 .setSaveConsumer(newValue -> {
@@ -182,7 +188,15 @@ public class ModConfig implements ModMenuApi {
                 })
                 .build());
 
-        general2.addEntry(entryBuilder.startBooleanToggle(Text.translatable("option.difficultyd.exhaustionlevel"), config.exhaustionLevel)
+        breakHunger.addEntry(entryBuilder.startBooleanToggle(Text.translatable("option.difficultyd.actionbarfoodchance"), config.randomFoodLevelChance)
+                .setDefaultValue(false)
+                .setSaveConsumer(newValue -> {
+                    config.randomFoodLevelChance = newValue;
+                    AutoConfig.getConfigHolder(ModAutoConfig.class).save();
+                })
+                .build());
+
+        breakHunger.addEntry(entryBuilder.startBooleanToggle(Text.translatable("option.difficultyd.exhaustionlevel"), config.exhaustionLevel)
                 .setDefaultValue(false)
                 .setTooltip(Text.translatable("option.difficultyd.exhaustionlevel.tooptip"))
                 .setSaveConsumer(newValue -> {
@@ -191,7 +205,7 @@ public class ModConfig implements ModMenuApi {
                 })
                 .build());
 
-        general2.addEntry(entryBuilder.startFloatField(Text.translatable("option.difficultyd.exhaustionlevelchance"), config.exhaustionLevelChance)
+        breakHunger.addEntry(entryBuilder.startFloatField(Text.translatable("option.difficultyd.exhaustionlevelchance"), config.exhaustionLevelChance)
                 .setDefaultValue(40f)
                 .setMax(100f).setMin(0)
                 .setTooltip(Text.translatable("option.difficultyd.exhaustionlevelchance.tooptip"))
@@ -201,7 +215,7 @@ public class ModConfig implements ModMenuApi {
                 })
                 .build());
 
-        general2.addEntry(entryBuilder.startFloatField(Text.translatable("option.difficultyd.addexhaustionlevel"), config.addExhaustionLevel)
+        breakHunger.addEntry(entryBuilder.startFloatField(Text.translatable("option.difficultyd.addexhaustionlevel"), config.addExhaustionLevel)
                 .setDefaultValue(1)
                 .setMax(4).setMin(0)
                 .setTooltip(Text.translatable("option.difficultyd.addexhaustionlevel.tooptip"))
@@ -211,15 +225,19 @@ public class ModConfig implements ModMenuApi {
                 })
                 .build());
 
-        general2.addEntry(entryBuilder.startBooleanToggle(Text.translatable("option.difficultyd.actionbarchance"), config.actionbarFoodLevelChance)
+        breakHunger.addEntry(entryBuilder.startBooleanToggle(Text.translatable("option.difficultyd.actionbarexhaustionchance"), config.randomExhaustionLevelChance)
                 .setDefaultValue(false)
-                .setTooltip(Text.translatable("option.difficultyd.actionbarchance.tooptip"))
                 .setSaveConsumer(newValue -> {
-                    config.actionbarFoodLevelChance = newValue;
+                    config.randomExhaustionLevelChance = newValue;
                     AutoConfig.getConfigHolder(ModAutoConfig.class).save();
                 })
                 .build());
 
         return builder;
+    }
+
+    @Override
+    public ConfigScreenFactory<?> getModConfigScreenFactory() {
+        return parent -> getConfigScreen().build();
     }
 }
