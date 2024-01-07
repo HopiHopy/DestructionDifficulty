@@ -23,7 +23,7 @@
       "com.movtery.difficultyd.DifficultyD"
     ],
     "modmenu": [
-      "com.movtery.difficultyd.Config.ModConfig"
+      "com.movtery.difficultyd.Config.ModMenuConfigScreen"
     ]
   },
   "mixins": [
@@ -33,7 +33,6 @@
     "fabricloader": "${fabricloader}",
     "fabric": "*",
     "minecraft": "${minecraft}",
-    "modmenu": "${modmenu}",
     "cloth-config": "${clothconfig}"
   }
 }

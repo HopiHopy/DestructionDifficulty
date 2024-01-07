@@ -1,6 +1,6 @@
 package com.movtery.difficultyd.Client;
 
-import com.movtery.difficultyd.Config.ModConfig;
+import com.movtery.difficultyd.Config.ConfigScreen;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
@@ -25,7 +25,7 @@ public class DifficultydClient implements ClientModInitializer {
         // 打开配置屏幕
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             if (OPEN_CONFIG_SCREEN.wasPressed()) {
-                Screen screen = ModConfig.getConfigScreen().build();
+                Screen screen = ConfigScreen.getConfigScreen().build();
                 MinecraftClient.getInstance().setScreen(screen);
             }
         });
