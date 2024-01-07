@@ -112,6 +112,8 @@ public class DifficultyD implements ModInitializer {
                             setAir(world, pos);
                         }
                     }
+                } else {
+                    setDropJudgment(" ? ");
                 }
 
                 if (config.foodLevel) {

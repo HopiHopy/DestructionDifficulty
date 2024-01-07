@@ -6,6 +6,8 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 
+import java.util.Objects;
+
 public class ShowRandomNumber {
     static ModAutoConfig config = AutoConfig.getConfigHolder(ModAutoConfig.class).getConfig();
 
@@ -19,13 +21,19 @@ public class ShowRandomNumber {
         }
         if (config.randomDropChance) {
             String judgment = DifficultyD.getDropJudgment();
-            Text message = Text.translatable("text.difficultyd.randomnumbers.drop")
-                    .append(" ")
-                    .append(String.valueOf(DifficultyD.getDropChance()))
-                    .append(judgment)
-                    .append(String.valueOf(DifficultyD.getDifferentToolDropChance()))
-                    .append(" ")
-                    .append(yesOrNo(judgment));
+            Text message;
+            if (!Objects.equals(judgment, " ? ")) {
+                message = Text.translatable("text.difficultyd.randomnumbers.drop")
+                        .append(" ")
+                        .append(String.valueOf(DifficultyD.getDropChance()))
+                        .append(judgment)
+                        .append(String.valueOf(DifficultyD.getDifferentToolDropChance()))
+                        .append(" ")
+                        .append(yesOrNo(judgment));
+            } else {
+                message = Text.translatable("text.difficultyd.randomnumbers.drop")
+                        .append(Text.translatable("text.difficultyd.randomnumbers.yes"));
+            }
             player.sendMessage(message);
         }
         if (config.foodLevel && config.randomFoodLevelChance) {
