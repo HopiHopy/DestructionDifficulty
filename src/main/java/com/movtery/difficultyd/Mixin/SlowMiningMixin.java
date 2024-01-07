@@ -2,6 +2,8 @@ package com.movtery.difficultyd.Mixin;
 
 import com.movtery.difficultyd.Config.ModAutoConfig;
 import me.shedaniel.autoconfig.AutoConfig;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.player.PlayerEntity;
@@ -11,6 +13,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+@Environment(EnvType.CLIENT)
 @Mixin(PlayerEntity.class)
 public class SlowMiningMixin {
     @Inject(method = "getBlockBreakingSpeed", at = @At("RETURN"), cancellable = true)

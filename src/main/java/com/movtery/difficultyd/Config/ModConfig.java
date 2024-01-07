@@ -6,10 +6,13 @@ import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.clothconfig2.api.ConfigBuilder;
 import me.shedaniel.clothconfig2.api.ConfigCategory;
 import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.text.Text;
 
 import java.util.Collections;
 
+@Environment(EnvType.CLIENT)
 public class ModConfig implements ModMenuApi {
     public static ConfigBuilder getConfigScreen() {
         ConfigBuilder builder = ConfigBuilder.create()
