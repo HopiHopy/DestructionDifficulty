@@ -1,6 +1,5 @@
 package com.movtery.difficultyd.Config;
 
-import com.terraformersmc.modmenu.api.ConfigScreenFactory;
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.clothconfig2.api.ConfigBuilder;
 import me.shedaniel.clothconfig2.api.ConfigCategory;
@@ -236,8 +235,5 @@ public class ConfigScreen {
                 .build());
 
         return configScreen;
-    }
-    public ConfigScreenFactory<?> getModConfigScreenFactory() {
-        return parent -> getConfigScreen().build();
     }
 }
