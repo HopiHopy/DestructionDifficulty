@@ -30,10 +30,10 @@
     "difficultyd.mixins.json"
   ],
   "depends": {
-    "fabricloader": ">=0.14.9",
+    "fabricloader": "${fabricloader}",
     "fabric": "*",
-    "minecraft": ">=1.19.3 <=1.20.4",
-    "modmenu": ">=5.0.0",
-    "cloth-config": ">=9.0.94"
+    "minecraft": "${minecraft}",
+    "modmenu": "${modmenu}",
+    "cloth-config": "${clothconfig}"
   }
 }
